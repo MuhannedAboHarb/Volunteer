@@ -9,18 +9,13 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\VolunteerHistoryController;
 
+// تعريف المسارات الخاصة بالتسجيل وتسجيل الدخول فقط
 Route::group(['prefix' => 'auth'], function () {
     // تسجيل مستخدم جديد
     Route::post('register', [AuthController::class, 'register']);
     
     // تسجيل دخول مستخدم
     Route::post('login', [AuthController::class, 'login']);
-    
-    // إرسال بريد التحقق
-    Route::post('verify-email', [AuthController::class, 'sendVerificationEmail']);
-    
-    // تحقق البريد الإلكتروني
-    Route::get('verify-email/{token}', [AuthController::class, 'verifyEmail']);
 });
 
 // تحديد Routes التي تتطلب توثيق باستخدام Sanctum
@@ -48,4 +43,3 @@ Route::middleware('auth:sanctum')->group(function () {
     // تاريخ المتطوعين
     Route::apiResource('volunteer-history', VolunteerHistoryController::class);
 });
-
