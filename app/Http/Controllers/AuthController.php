@@ -13,26 +13,21 @@ class AuthController extends Controller
 {
     // دالة تسجيل مستخدم جديد
     public function register(Request $request)
-    {
-        // التحقق من صحة المدخلات
-        $request->validate([
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
-        ]);
+{
+    $request->validate([
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:8',
+    ]);
 
-        // إنشاء مستخدم جديد
-        $user = User::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'Volunteer',  // تعيين الدور الافتراضي
-        ]);
+    $user = User::create([
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'role' => 'Volunteer',  // تعيين الدور الافتراضي
+    ]);
 
-        // إرجاع استجابة عند النجاح
-        return response()->json([
-            'message' => 'تم إنشاء المستخدم بنجاح.',
-            'user' => $user
-        ]);
-    }
+    // تأكيد التسجيل برسالة ترحيب
+    return response()->json(['message' => 'User created successfully.']);
+}
 
     // دالة تسجيل دخول المستخدم
     public function login(Request $request)
